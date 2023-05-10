@@ -26,6 +26,8 @@ public class App02HelloWorldSpring {
         System.out.println(context.getBean("person3Parameters"));
         System.out.println(context.getBean("person4Parameters"));
 
-        Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
+        System.out.println(context.getBean("person5Qualifier"));
+
+//        Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
     }
 }

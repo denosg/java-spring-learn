@@ -1,12 +1,15 @@
 package com.costelas.learnspringframework;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-record Person(String name, int age, Address address) { }
+record Person(String name, int age, Address address) {
+}
 
-record Address(String firstLine, String city) { }
+record Address(String firstLine, String city) {
+}
 
 @Configuration
 public class HelloWorldConfiguration {
@@ -37,7 +40,13 @@ public class HelloWorldConfiguration {
     }
 
     @Bean
-    public Person person4Parameters(String name, int age, Address address) { //name, age, address
+    @Primary
+    public Person person4Parameters(String name, int age, @Qualifier("address3qualifier") Address address) { //name, age, address
+        return new Person(name, age, address); // name, age
+    }
+
+    @Bean
+    public Person person5Qualifier(String name, int age, @Qualifier("address3qualifier") Address address) { //name, age, address
         return new Person(name, age, address); // name, age
     }
 
@@ -48,6 +57,7 @@ public class HelloWorldConfiguration {
     }
 
     @Bean(name = "address3")
+    @Qualifier("address3qualifier")
     public Address address3() {
         return new Address("Ce plm", "Salaj");
     }
